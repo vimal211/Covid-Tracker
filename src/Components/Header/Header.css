@@ -3,9 +3,25 @@
   width: 100%;
   padding: 20px;
   border-bottom: 1px solid #adaeb1;
-  box-shadow: 0px 0px 20px rgb(180, 179, 179);
+  /* box-shadow: 0px 0px 20px rgb(180, 179, 179); */
 }
 
 .headerContainer h2 span {
   color: #216ee2;
+}
+
+.icon {
+  animation: spin 5s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: scale(1, 1) rotate(-180deg);
+  }
+  50% {
+    transform: scale(0.8, 0.8) rotate(0);
+  }
+  100% {
+    transform: scale(1, 1) rotate(180deg);
+  }
 }
