@@ -6,6 +6,7 @@ import { DataContext } from "./Context/DataContext";
 import StateCard from "./Components/StateCard/StateCard";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DetailedPage from "./Components/DetailedPage/DetailedPage";
+import Spinner from "./Components/Spinner/Spinner";
 
 function App() {
   let [stateData, stateDate, searchState, setSearchState] =
@@ -26,7 +27,7 @@ function App() {
       <div className="App">
         <Header />
         {loading ? (
-          <h2>Loading...</h2>
+          <Spinner />
         ) : (
           <Routes>
             <Route

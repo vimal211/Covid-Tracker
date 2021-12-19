@@ -2,13 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function CardDetails({ stateData }) {
-  //   console.log(state);
   let districts = [];
   if (stateData.data.districts) {
     districts.push(...Object.keys(stateData.data.districts));
   }
-
-  // localStorage.setItem(`${stateData.id}data`, JSON.stringify(stateData.data));
 
   return (
     <div className="card">
