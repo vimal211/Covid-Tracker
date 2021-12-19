@@ -5,9 +5,24 @@
   border-bottom: 1px solid #adaeb1;
 }
 
+.states {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-around; */
+  align-items: center;
+}
+
 .states p {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 700;
+  padding: 0 10px;
+}
+
+.states p:first-child {
+  font-size: xx-large;
+  font-weight: bolder;
+  margin-left: -10px;
+  cursor: pointer;
 }

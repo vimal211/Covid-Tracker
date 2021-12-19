@@ -1,13 +1,29 @@
-import React, { useContext } from "react";
-import { DataContext } from "../../Context/DataContext";
+import React from "react";
 import "./FilterBar.css";
+import { useNavigate } from "react-router-dom";
 
-function FilterBar() {
-  let [finalData] = useContext(DataContext);
+import { useParams } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+
+function FilterBar({ name }) {
+  let navigate = useNavigate();
+  let params = useParams();
+  const moveToHome = () => {
+    return navigate("/");
+  };
+
   return (
     <div className="filterContainer">
       <div className="states">
-        <p>States</p>
+        <p onClick={moveToHome}>
+          {params.state ? (
+            <FontAwesomeIcon icon={("fas", faLongArrowAltLeft)} />
+          ) : (
+            ""
+          )}
+        </p>
+        <p>{params.state ? params.state : name}</p>
       </div>
     </div>
   );

@@ -1,21 +1,35 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function CardDetails({ state }) {
+function CardDetails({ stateData }) {
   //   console.log(state);
   let districts = [];
-  if (state.data.districts) {
-    districts.push(...Object.keys(state.data.districts));
+  if (stateData.data.districts) {
+    districts.push(...Object.keys(stateData.data.districts));
   }
-  console.log(districts);
+
+  // localStorage.setItem(`${stateData.id}data`, JSON.stringify(stateData.data));
+
   return (
     <div className="card">
       <div className="top">
-        <h3>{state.name}</h3>
+        <Link
+          style={{ textDecoration: "none", color: "white" }}
+          to={`/${stateData.name}`}
+        >
+          {" "}
+          <h3>{stateData.name}</h3>
+        </Link>
+
         {districts.length > 0 ? (
           <select name="districts" id="districts">
             <option value="All">All Districts</option>
-            {districts.map((ele) => {
-              return <option value={ele}>{ele}</option>;
+            {districts.map((ele, ind) => {
+              return (
+                <option key={ind} value={ele}>
+                  {ele}
+                </option>
+              );
             })}
           </select>
         ) : (
@@ -27,15 +41,21 @@ function CardDetails({ state }) {
         <div>
           <p>
             <strong>Confirmed</strong> :{" "}
-            <span style={{ color: "red" }}>{state.data.total.confirmed}</span>
+            <span style={{ color: "red" }}>
+              {stateData.data.total.confirmed}
+            </span>
           </p>
           <p>
             <strong>Recovered</strong> :{" "}
-            <span style={{ color: "green" }}>{state.data.total.recovered}</span>
+            <span style={{ color: "green" }}>
+              {stateData.data.total.recovered}
+            </span>
           </p>
           <p>
             <strong>Deceased</strong> :{" "}
-            <span style={{ color: "grey" }}>{state.data.total.deceased}</span>
+            <span style={{ color: "grey" }}>
+              {stateData.data.total.deceased}
+            </span>
           </p>
         </div>
       </div>

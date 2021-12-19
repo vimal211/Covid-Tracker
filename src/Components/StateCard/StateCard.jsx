@@ -5,8 +5,8 @@ import CardDetails from "./CardDetails";
 function StateCard({ data }) {
   return (
     <div className="cardContainer">
-      {data.map((ele) => {
-        return <CardDetails state={ele} />;
+      {data.map((ele, ind) => {
+        return <CardDetails key={ind} stateData={ele} />;
       })}
     </div>
   );

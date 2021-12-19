@@ -1,29 +1,58 @@
 import "./App.css";
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import FilterBar from "./Components/FilterBar/FilterBar";
 import Header from "./Components/Header/Header";
 import { DataContext } from "./Context/DataContext";
 import StateCard from "./Components/StateCard/StateCard";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DetailedPage from "./Components/DetailedPage/DetailedPage";
 
 function App() {
-  let [finalData] = useContext(DataContext);
+  let [stateData, stateDate] = useContext(DataContext);
   let [loading, setLoading] = useState(true);
+  // if (!loading) {
+  //   localStorage.setItem("data", JSON.stringify(finalData));
+  // }
+
   useEffect(() => {
-    if (finalData === undefined) {
+    if (stateData === undefined || stateDate === undefined) {
       setLoading(true);
     }
-    if (finalData !== undefined) {
+    if (stateData !== undefined && stateDate !== undefined) {
       setLoading(false);
     }
-  }, [finalData]);
+  }, [stateData, stateDate]);
 
   return (
-    <div className="App">
-      {console.log(finalData)}
-      <Header />
-      <FilterBar />
-      {loading ? <h2>Loading...</h2> : <StateCard data={finalData} />}
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        {loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <FilterBar name="states" />
+                  <StateCard data={stateData} />
+                </>
+              }
+            />
+            <Route
+              path="/:state"
+              element={
+                <>
+                  <FilterBar name="" />
+                  <DetailedPage date={stateDate} />
+                </>
+              }
+            />
+          </Routes>
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 

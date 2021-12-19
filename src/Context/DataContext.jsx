@@ -4,7 +4,8 @@ import { stateName, stateCodes } from "../Constants/States";
 export const DataContext = createContext();
 
 export const DataProvider = (props) => {
-  const [finalData, setFinalData] = useState();
+  const [stateData, setStateData] = useState();
+  const [stateDate, setStateDate] = useState();
 
   useEffect(async () => {
     let stateVar = await fetch(
@@ -17,17 +18,29 @@ export const DataProvider = (props) => {
     let stateArr = [];
     stateCodes.forEach((ele, ind) => {
       let obj = {
+        id: ind,
         name: stateName[ind],
         data: stateVar[ele],
-        date: dateVar[ele],
+        // date: dateVar[ele],
       };
       stateArr.push(obj);
     });
-    setFinalData(stateArr);
+    let dateArr = [];
+    stateCodes.forEach((ele, ind) => {
+      let obj = {
+        id: ind,
+        name: stateName[ind],
+        // data: stateVar[ele],
+        date: dateVar[ele],
+      };
+      dateArr.push(obj);
+    });
+    setStateData(stateArr);
+    setStateDate(dateArr);
   }, []);
 
   return (
-    <DataContext.Provider value={[finalData]}>
+    <DataContext.Provider value={[stateData, stateDate]}>
       {props.children}
     </DataContext.Provider>
   );

@@ -1,0 +1,22 @@
+.detailedPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  margin-top: 20px;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 20px 45px;
+  background-color: rgba(235, 230, 230, 0.658);
+  border-radius: 5px;
+  font-size: large;
+}
+
+td {
+  font-weight: 600;
+}

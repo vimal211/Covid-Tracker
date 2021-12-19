@@ -31,6 +31,10 @@
   border-radius: 5px 5px 0 0;
 }
 
+.top h3 {
+  cursor: pointer;
+}
+
 .bottom {
   display: flex;
   flex-direction: column;
