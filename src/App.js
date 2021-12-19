@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FilterBar from "./Components/FilterBar/FilterBar";
 import Header from "./Components/Header/Header";
 import { DataContext } from "./Context/DataContext";
@@ -8,11 +8,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DetailedPage from "./Components/DetailedPage/DetailedPage";
 
 function App() {
-  let [stateData, stateDate] = useContext(DataContext);
+  let [stateData, stateDate, searchState, setSearchState] =
+    useContext(DataContext);
   let [loading, setLoading] = useState(true);
-  // if (!loading) {
-  //   localStorage.setItem("data", JSON.stringify(finalData));
-  // }
 
   useEffect(() => {
     if (stateData === undefined || stateDate === undefined) {
@@ -36,7 +34,7 @@ function App() {
               element={
                 <>
                   <FilterBar name="states" />
-                  <StateCard data={stateData} />
+                  <StateCard data={searchState ? searchState : stateData} />
                 </>
               }
             />

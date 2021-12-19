@@ -1,6 +1,4 @@
 .cardContainer {
-  /* background-color: rgb(80, 82, 83); */
-  /* margin: 1%; */
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -8,14 +6,25 @@
   align-items: center;
 }
 
+.noState {
+  background-color: #ebe6e68c;
+  text-align: center;
+  padding: 25px 15px;
+  color: #000000;
+  font-size: larger;
+  font-weight: 800;
+  width: 50%;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 50px rgba(102, 101, 101, 0.788);
+}
+
 .card {
-  /* background-color: #f5f0e17c; */
   width: 29rem;
   border-radius: 5px;
   margin: 15px;
   color: #1e3d59;
   box-shadow: 2px 1px 20px rgb(170, 169, 169);
-  /* padding: 20px; */
 }
 
 .top {
