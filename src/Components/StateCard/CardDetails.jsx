@@ -15,7 +15,6 @@ function CardDetails({ stateData }) {
       } else {
         setDisplayData(stateData.data.districts[value]);
       }
-      // setDisplayData(stateData.data.districts[value]);
     }
   }, [displayData]);
   let districts = [];
@@ -75,7 +74,6 @@ function CardDetails({ stateData }) {
                   ? displayData.total.confirmed
                   : "-"
                 : "-"}
-              {/* {stateData.data.total.confirmed} */}
             </span>
           </p>
           <p>
@@ -86,8 +84,6 @@ function CardDetails({ stateData }) {
                   ? displayData.total.recovered
                   : "-"
                 : "-"}
-
-              {/* {stateData.data.total.recovered} */}
             </span>
           </p>
           <p>

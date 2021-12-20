@@ -39,3 +39,8 @@
   box-shadow: 0px 0px 25px rgba(124, 118, 118, 0.397);
   border-radius: 5px;
 }
+
+.date {
+  padding: 5px;
+  outline: none;
+}

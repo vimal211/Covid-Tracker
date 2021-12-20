@@ -7,6 +7,7 @@ export const DataProvider = (props) => {
   const [stateData, setStateData] = useState();
   const [stateDate, setStateDate] = useState();
   const [searchState, setSearchState] = useState();
+  const [updateDate, setUpdateDate] = useState("");
 
   useEffect(async () => {
     let stateVar = await fetch(
@@ -42,7 +43,14 @@ export const DataProvider = (props) => {
 
   return (
     <DataContext.Provider
-      value={[stateData, stateDate, searchState, setSearchState]}
+      value={[
+        stateData,
+        stateDate,
+        searchState,
+        setSearchState,
+        updateDate,
+        setUpdateDate,
+      ]}
     >
       {props.children}
     </DataContext.Provider>

@@ -24,6 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      {console.log(stateData, stateDate)}
       <div className="App">
         <Header />
         {loading ? (

@@ -11,7 +11,7 @@ table {
 th,
 td {
   text-align: center;
-  padding: 20px 45px;
+  padding: 1rem 3rem;
   background-color: rgba(235, 230, 230, 0.658);
   border-radius: 5px;
   font-size: large;
