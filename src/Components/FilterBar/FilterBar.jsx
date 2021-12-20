@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./FilterBar.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,9 +14,17 @@ function FilterBar({ name }) {
     updateDate,
     setUpdateDate,
   ] = useContext(DataContext);
-  // console.log(updateDate);
+
   let navigate = useNavigate();
   let params = useParams();
+  let prevDate = localStorage.getItem(`date-${params.state}`);
+  useEffect(() => {
+    if (prevDate) {
+      setUpdateDate(prevDate);
+    } else {
+      setUpdateDate("");
+    }
+  }, []);
   const moveToHome = () => {
     return navigate("/");
   };
@@ -38,28 +46,14 @@ function FilterBar({ name }) {
   const updateDates = (e) => {
     let date = e.target.value;
     console.log(date);
+    localStorage.setItem(`date-${params.state}`, date);
     setUpdateDate(date);
-    // let dateObj = stateDate.filter((ele) => {
-    //   return ele.name === params.state;
-    // });
-    // // console.log(dateObj);
-    // let selectedDate;
-    // if (date === "") {
-    //   setUpdateDate(stateDate);
-    // } else {
-    //   if (dateObj[0].date.dates[date]) {
-    //     // console.log(dateObj[0].date.dates[date]);
-    //     setUpdateDate(dateObj[0].date.dates[date]);
-    //   } else {
-    //     // console.log("no result found");
-    //     setUpdateDate([]);
-    //   }
-    // }
   };
 
   return (
     <div className="filterContainer">
       <div className="states">
+        {console.log(prevDate)}
         <p onClick={moveToHome}>
           {params.state ? (
             <FontAwesomeIcon icon={("fas", faLongArrowAltLeft)} />
@@ -72,7 +66,12 @@ function FilterBar({ name }) {
       {params.state ? (
         <div>
           {" "}
-          <input className="date" onChange={updateDates} type="date" />
+          <input
+            defaultValue={prevDate ? prevDate : ""}
+            className="date"
+            onChange={updateDates}
+            type="date"
+          />
         </div>
       ) : (
         <div className="searchBar">
