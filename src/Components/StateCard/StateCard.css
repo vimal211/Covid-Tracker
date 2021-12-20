@@ -46,13 +46,22 @@
 
 .bottom {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.details {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px 20px;
+  text-align: center;
 }
 
-.bottom div:first-child {
+.bottom div span {
   font-size: 20px;
   font-weight: bolder;
 }
@@ -66,4 +75,10 @@
 select {
   outline: none;
   padding: 5px;
+}
+
+.navigate {
+  color: #4042afa8;
+  font-size: x-large;
+  cursor: pointer;
 }

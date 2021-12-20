@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
 
 function CardDetails({ stateData }) {
   let [dropdDownValue, setDropDownValue] = useState("All");
+  let [cardNo, setCardNo] = useState(1);
   let [displayData, setDisplayData] = useState(stateData.data);
 
   useEffect(() => {
@@ -32,6 +35,25 @@ function CardDetails({ stateData }) {
         : setDisplayData(disObj);
     }
   };
+
+  const nextSlide = () => {
+    let currSlide = cardNo;
+    if (currSlide === 3) {
+      setCardNo(1);
+    } else {
+      setCardNo(currSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    let currSlide = cardNo;
+    if (currSlide === 1) {
+      setCardNo(3);
+    } else {
+      setCardNo(currSlide - 1);
+    }
+  };
+
   return (
     <div className="card">
       <div className="top">
@@ -64,14 +86,38 @@ function CardDetails({ stateData }) {
         )}
       </div>
       <div className="bottom">
-        <div>TOTAL</div>
-        <div>
+        <div className="leftArrow">
+          <FontAwesomeIcon
+            onClick={prevSlide}
+            className="navigate"
+            icon={("fas", faLessThan)}
+          />
+        </div>
+
+        <div className="details">
+          <div>
+            <span>
+              {cardNo === 1 ? "TOTAL" : cardNo === 2 ? "DELTA" : "DELTA-7"}
+            </span>
+          </div>
           <p>
             <strong>Confirmed</strong> :{" "}
             <span style={{ color: "red" }}>
-              {displayData.total
-                ? displayData.total.confirmed
+              {cardNo === 1
+                ? displayData.total
                   ? displayData.total.confirmed
+                    ? displayData.total.confirmed
+                    : "-"
+                  : "-"
+                : cardNo === 2
+                ? displayData.delta
+                  ? displayData.delta.confirmed
+                    ? displayData.delta.confirmed
+                    : "-"
+                  : "-"
+                : displayData.delta7
+                ? displayData.delta7.confirmed
+                  ? displayData.delta7.confirmed
                   : "-"
                 : "-"}
             </span>
@@ -79,9 +125,21 @@ function CardDetails({ stateData }) {
           <p>
             <strong>Recovered</strong> :{" "}
             <span style={{ color: "green" }}>
-              {displayData.total
-                ? displayData.total.recovered
+              {cardNo === 1
+                ? displayData.total
                   ? displayData.total.recovered
+                    ? displayData.total.recovered
+                    : "-"
+                  : "-"
+                : cardNo === 2
+                ? displayData.delta
+                  ? displayData.delta.recovered
+                    ? displayData.delta.recovered
+                    : "-"
+                  : "-"
+                : displayData.delta7
+                ? displayData.delta7.recovered
+                  ? displayData.delta7.recovered
                   : "-"
                 : "-"}
             </span>
@@ -89,15 +147,32 @@ function CardDetails({ stateData }) {
           <p>
             <strong>Deceased</strong> :{" "}
             <span style={{ color: "grey" }}>
-              {displayData.total
-                ? displayData.total.deceased
+              {cardNo === 1
+                ? displayData.total
                   ? displayData.total.deceased
+                    ? displayData.total.deceased
+                    : "-"
+                  : "-"
+                : cardNo === 2
+                ? displayData.delta
+                  ? displayData.delta.deceased
+                    ? displayData.delta.deceased
+                    : "-"
+                  : "-"
+                : displayData.delta7
+                ? displayData.delta7.deceased
+                  ? displayData.delta7.deceased
                   : "-"
                 : "-"}
-
-              {/* {stateData.data.total.deceased} */}
             </span>
           </p>
+        </div>
+        <div className="rightArrow">
+          <FontAwesomeIcon
+            onClick={nextSlide}
+            className="navigate"
+            icon={("fas", faGreaterThan)}
+          />
         </div>
       </div>
     </div>
