@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./DetailedPage.css";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 
 function DetailedPage({ date, data }) {
   window.onload = window.scroll(0, 0);
+  let [selectedDist, setSelectedDist] = useState("All");
   let [
     stateData,
     stateDate,
@@ -15,24 +16,27 @@ function DetailedPage({ date, data }) {
     showDistrict,
     setShowDistrict,
   ] = useContext(DataContext);
-
   let Params = useParams();
-
   let currStateDate = date.filter((ele) => {
     return ele.name === Params.state;
   });
   let dates = currStateDate[0].date.dates;
-
   let currStateData = data.filter((ele) => {
     return ele.name === Params.state;
   });
-  console.log(currStateData);
-
   let distData = currStateData[0].data.districts;
+  let allDistData = [...Object.keys(currStateData[0].data.districts)];
+
+  const updateDist = (e) => {
+    let distName = e.target.value;
+    if (distName === "All") {
+      setSelectedDist("All");
+    } else {
+      setSelectedDist(distName);
+    }
+  };
 
   const tableRender = (dates) => {
-    let allDistData = [];
-    allDistData = Object.keys(currStateData[0].data.districts);
     //
     let allDate;
     if (updateDate === "") {
@@ -41,9 +45,15 @@ function DetailedPage({ date, data }) {
       allDate = [];
       allDate.push(updateDate);
     }
-    let reqDataArr = showDistrict ? allDistData : allDate;
+
+    let reqDataArr = showDistrict
+      ? selectedDist === "All"
+        ? allDistData
+        : [selectedDist]
+      : allDate;
     //
     let fragment = reqDataArr.map((ele, ind) => {
+      console.log(distData);
       let obj = showDistrict ? distData[ele] : dates[ele];
 
       return (
@@ -112,6 +122,26 @@ function DetailedPage({ date, data }) {
 
   return (
     <div className="detailedPage">
+      <div>
+        {showDistrict ? (
+          <div>
+            <strong>Select District : </strong>
+            <select onChange={updateDist} name="districts">
+              <option value="All">All Districts</option>
+
+              {allDistData.map((ele, ind) => {
+                return (
+                  <option key={ind} value={ele}>
+                    {ele}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <table>
         <thead>
           <tr>
