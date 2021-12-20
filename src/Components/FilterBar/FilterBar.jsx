@@ -45,7 +45,6 @@ function FilterBar({ name }) {
 
   const updateDates = (e) => {
     let date = e.target.value;
-    console.log(date);
     localStorage.setItem(`date-${params.state}`, date);
     setUpdateDate(date);
   };
@@ -53,7 +52,6 @@ function FilterBar({ name }) {
   return (
     <div className="filterContainer">
       <div className="states">
-        {console.log(prevDate)}
         <p onClick={moveToHome}>
           {params.state ? (
             <FontAwesomeIcon icon={("fas", faLongArrowAltLeft)} />
@@ -65,7 +63,7 @@ function FilterBar({ name }) {
       </div>
       {params.state ? (
         <div>
-          {" "}
+          <strong>Date : </strong>
           <input
             defaultValue={prevDate ? prevDate : ""}
             className="date"
