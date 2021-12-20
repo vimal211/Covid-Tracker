@@ -96,7 +96,13 @@ function CardDetails({ stateData }) {
 
         <div className="details">
           <div>
-            <span>
+            <span
+              style={{
+                fontSize: "40px",
+                fontFamily: "monospace",
+                fontWeight: "900",
+              }}
+            >
               {cardNo === 1 ? "TOTAL" : cardNo === 2 ? "DELTA" : "DELTA-7"}
             </span>
           </div>

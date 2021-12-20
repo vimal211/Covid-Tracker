@@ -24,7 +24,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {console.log(stateData, stateDate)}
+      {/* {console.log(stateData)} */}
       <div className="App">
         <Header />
         {loading ? (
@@ -45,7 +45,7 @@ function App() {
               element={
                 <>
                   <FilterBar name="" />
-                  <DetailedPage date={stateDate} />
+                  <DetailedPage date={stateDate} data={stateData} />
                 </>
               }
             />

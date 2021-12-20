@@ -46,3 +46,24 @@
   border: none;
   box-shadow: 0px 0px 25px rgba(124, 118, 118, 0.397);
 }
+
+.filterOptions {
+  display: flex;
+  justify-content: space-between;
+  /* background-color: black; */
+  /* width: 20%; */
+  align-items: center;
+}
+
+.distButton button {
+  padding: 5px 15px;
+  margin-right: 30px;
+  box-shadow: 3px 0px 10px rgba(104, 157, 184, 0.616);
+  border: none;
+  background-color: rgb(240, 64, 64);
+  color: rgb(255, 255, 255);
+  font-size: large;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 2px;
+}

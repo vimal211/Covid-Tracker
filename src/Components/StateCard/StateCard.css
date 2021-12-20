@@ -78,7 +78,8 @@ select {
 }
 
 .navigate {
-  color: #2f2f3081;
+  color: #dd6536d2;
   font-size: x-large;
   cursor: pointer;
+  /* box-shadow: 1px 0px 10px black; */
 }

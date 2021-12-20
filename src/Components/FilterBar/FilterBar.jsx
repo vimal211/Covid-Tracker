@@ -13,6 +13,8 @@ function FilterBar({ name }) {
     setSearchState,
     updateDate,
     setUpdateDate,
+    showDistrict,
+    setShowDistrict,
   ] = useContext(DataContext);
 
   let navigate = useNavigate();
@@ -46,7 +48,12 @@ function FilterBar({ name }) {
   const updateDates = (e) => {
     let date = e.target.value;
     localStorage.setItem(`date-${params.state}`, date);
+    setShowDistrict(false);
     setUpdateDate(date);
+  };
+
+  const showDist = () => {
+    setShowDistrict(true);
   };
 
   return (
@@ -62,14 +69,19 @@ function FilterBar({ name }) {
         <p>{params.state ? params.state : name}</p>
       </div>
       {params.state ? (
-        <div>
-          <strong>Date : </strong>
-          <input
-            defaultValue={prevDate ? prevDate : ""}
-            className="date"
-            onChange={updateDates}
-            type="date"
-          />
+        <div className="filterOptions">
+          <div className="distButton">
+            <button onClick={showDist}> Districts </button>
+          </div>
+          <div className="DateFilter">
+            <strong>Date : </strong>
+            <input
+              defaultValue={prevDate ? prevDate : ""}
+              className="date"
+              onChange={updateDates}
+              type="date"
+            />
+          </div>
         </div>
       ) : (
         <div className="searchBar">

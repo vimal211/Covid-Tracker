@@ -8,6 +8,7 @@ export const DataProvider = (props) => {
   const [stateDate, setStateDate] = useState();
   const [searchState, setSearchState] = useState();
   const [updateDate, setUpdateDate] = useState("");
+  const [showDistrict, setShowDistrict] = useState(false);
 
   useEffect(async () => {
     let stateVar = await fetch(
@@ -50,6 +51,8 @@ export const DataProvider = (props) => {
         setSearchState,
         updateDate,
         setUpdateDate,
+        showDistrict,
+        setShowDistrict,
       ]}
     >
       {props.children}

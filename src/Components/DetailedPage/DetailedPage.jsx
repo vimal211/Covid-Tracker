@@ -1,11 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./DetailedPage.css";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../../Context/DataContext";
 
-function DetailedPage({ date }) {
+function DetailedPage({ date, data }) {
   window.onload = window.scroll(0, 0);
-  let [noResult, setNoResult] = useState(true);
   let [
     stateData,
     stateDate,
@@ -13,15 +12,28 @@ function DetailedPage({ date }) {
     setSearchState,
     updateDate,
     setUpdateDate,
+    showDistrict,
+    setShowDistrict,
   ] = useContext(DataContext);
 
   let Params = useParams();
-  let currState = date.filter((ele) => {
+
+  let currStateDate = date.filter((ele) => {
     return ele.name === Params.state;
   });
-  let dates = currState[0].date.dates;
+  let dates = currStateDate[0].date.dates;
+
+  let currStateData = data.filter((ele) => {
+    return ele.name === Params.state;
+  });
+  console.log(currStateData);
+
+  let distData = currStateData[0].data.districts;
 
   const tableRender = (dates) => {
+    let allDistData = [];
+    allDistData = Object.keys(currStateData[0].data.districts);
+    //
     let allDate;
     if (updateDate === "") {
       allDate = Object.keys(dates);
@@ -29,10 +41,10 @@ function DetailedPage({ date }) {
       allDate = [];
       allDate.push(updateDate);
     }
-    // allDate = Object.keys(dates);
-    console.log(allDate);
-    let fragment = allDate.map((ele, ind) => {
-      let obj = dates[ele];
+    let reqDataArr = showDistrict ? allDistData : allDate;
+    //
+    let fragment = reqDataArr.map((ele, ind) => {
+      let obj = showDistrict ? distData[ele] : dates[ele];
 
       return (
         <tbody>
@@ -103,7 +115,7 @@ function DetailedPage({ date }) {
       <table>
         <thead>
           <tr>
-            <th>Date</th>
+            <th> {showDistrict ? "District Name" : "Date"}</th>
             <th>Confirmed</th>
             <th>Recovered</th>
             <th>Deceased</th>
