@@ -22,7 +22,7 @@
 
 ![Screenshot (463)](https://user-images.githubusercontent.com/44440927/146942658-1b5a189a-bfc1-4ae8-afc1-26679c9f26bb.png)
 
-The state page will tabulate all the available details in district wise and date of the state.
+The state page will tabulate all the available details in district wise and date wise of the particular state.
 
 ### Featues in State Page
   <ul>
