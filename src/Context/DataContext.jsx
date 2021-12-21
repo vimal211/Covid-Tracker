@@ -11,9 +11,6 @@ export const DataProvider = (props) => {
   const [showDistrict, setShowDistrict] = useState(false);
   const [sortByCategory, setSortByCategory] = useState("Name");
   const [sortByNumber, setSortByNumber] = useState("Ascending");
-  // const [confirmed, setConfirmed] = useState();
-  // const [affected, setAffected] = useState();
-  // const [vaccinated, setVaccinated] = useState();
 
   useEffect(async () => {
     let stateVar = await fetch(

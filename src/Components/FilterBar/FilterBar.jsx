@@ -75,6 +75,7 @@ function FilterBar({ name }) {
       setSearchState(undefined);
     } else {
       setSortByCategory(filter);
+      setSearchState(undefined);
     }
   };
 
@@ -129,7 +130,6 @@ function FilterBar({ name }) {
                 id=""
               >
                 <option value="Name">Name</option>
-
                 <option value="Confirmed">Confirmed</option>
                 <option value="Affected">Affected</option>
                 <option value="Vaccinated">Vaccinated</option>

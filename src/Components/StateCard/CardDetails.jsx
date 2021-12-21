@@ -223,6 +223,18 @@ function CardDetails({ cardData }) {
           />
         </div>
       </div>
+      <div className="bottom">
+        <p>
+          {" "}
+          <strong> Affected : </strong>
+          <span>{cardData.affectedPercentage}%</span>
+        </p>
+        <p>
+          {" "}
+          <strong> Vaccinated : </strong>
+          <span>{cardData.vaccinatedPercentage}%</span>
+        </p>
+      </div>
     </div>
   );
 }

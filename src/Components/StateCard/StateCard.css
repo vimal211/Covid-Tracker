@@ -24,6 +24,7 @@
   border-radius: 5px;
   margin: 15px;
   color: #1e3d59;
+  box-sizing: border-box;
   box-shadow: 2px 1px 20px rgb(170, 169, 169);
 }
 
@@ -81,4 +82,15 @@ select {
   color: #dd6536d2;
   font-size: x-large;
   cursor: pointer;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: rgb(196, 196, 196);
+  border-radius: 0 0 5px 5px;
+  font-size: larger;
+  font-weight: 700;
+  /* color: aliceblue; */
 }
