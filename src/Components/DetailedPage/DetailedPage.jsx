@@ -5,8 +5,8 @@ import { DataContext } from "../../Context/DataContext";
 
 function DetailedPage({ date, data }) {
   window.onload = window.scroll(0, 0);
-  let [selectedDist, setSelectedDist] = useState("All");
-  let [
+  const [selectedDist, setSelectedDist] = useState("All");
+  const [
     stateData,
     stateDate,
     searchState,
@@ -16,6 +16,7 @@ function DetailedPage({ date, data }) {
     showDistrict,
     setShowDistrict,
   ] = useContext(DataContext);
+  //
   let Params = useParams();
   let currStateDate = date.filter((ele) => {
     return ele.name === Params.state;
@@ -26,7 +27,7 @@ function DetailedPage({ date, data }) {
   });
   let distData = currStateData[0].data.districts;
   let allDistData = [...Object.keys(currStateData[0].data.districts)];
-
+  //
   const updateDist = (e) => {
     let distName = e.target.value;
     if (distName === "All") {
@@ -35,9 +36,8 @@ function DetailedPage({ date, data }) {
       setSelectedDist(distName);
     }
   };
-
+  //
   const tableRender = (dates) => {
-    //
     let allDate;
     if (updateDate === "") {
       allDate = Object.keys(dates);
@@ -45,7 +45,7 @@ function DetailedPage({ date, data }) {
       allDate = [];
       allDate.push(updateDate);
     }
-
+    //
     let reqDataArr = showDistrict
       ? selectedDist === "All"
         ? allDistData

@@ -1,12 +1,12 @@
-import "./App.css";
 import React, { useContext, useEffect, useState } from "react";
+import { DataContext } from "./Context/DataContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FilterBar from "./Components/FilterBar/FilterBar";
 import Header from "./Components/Header/Header";
-import { DataContext } from "./Context/DataContext";
 import StateCard from "./Components/StateCard/StateCard";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DetailedPage from "./Components/DetailedPage/DetailedPage";
 import Spinner from "./Components/Spinner/Spinner";
+import "./App.css";
 
 function App() {
   let [
@@ -24,8 +24,8 @@ function App() {
     setSortByNumber,
   ] = useContext(DataContext);
 
-  let [loading, setLoading] = useState(true);
-  let [sortData, setSortData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [sortData, setSortData] = useState();
   const [confirmed, setConfirmed] = useState();
   const [affected, setAffected] = useState();
   const [vaccinated, setVaccinated] = useState();
@@ -35,6 +35,7 @@ function App() {
       setLoading(true);
     }
     if (stateData !== undefined && stateDate !== undefined) {
+      //
       let confirmedArr = [...stateData].sort((a, b) => {
         return a.data.total.confirmed - b.data.total.confirmed;
       });
@@ -44,9 +45,11 @@ function App() {
       let vaccinatedArr = [...stateData].sort((a, b) => {
         return a.vaccinatedPercentage - b.vaccinatedPercentage;
       });
+      //
       setConfirmed(confirmedArr);
       setAffected(affectedArr);
       setVaccinated(vaccinatedArr);
+      //
       if (sortByCategory === "Name") {
         if (sortByNumber === "Ascending") {
           setSortData(stateData);
@@ -75,21 +78,6 @@ function App() {
       setLoading(false);
     }
   }, [stateData, stateDate, sortByCategory, sortByNumber]);
-  // useEffect(() => {
-  //   let confirmedArr;
-  //   if (stateData !== undefined) {
-  //     confirmedArr = [...stateData].sort((a, b) => {
-  //       if (a.data.total.confirmed < b.data.total.confirmed) {
-  //         return -1;
-  //       } else if (a.data.total.confirmed > b.data.total.confirmed) {
-  //         return 1;
-  //       } else {
-  //         return 0;
-  //       }
-  //     });
-  //     setConfirmed(confirmedArr);
-  //   }
-  // }, [stateData]);
 
   return (
     <BrowserRouter>

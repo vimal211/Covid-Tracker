@@ -38,9 +38,11 @@ function FilterBar({ name }) {
       setUpdateDate("");
     }
   }, []);
+  //
   const moveToHome = () => {
     return navigate("/");
   };
+  //
   const searchStates = (e) => {
     let input = e.target.value;
     let stateFound = [];
@@ -55,18 +57,18 @@ function FilterBar({ name }) {
       setSearchState(stateFound);
     }
   };
-
+  //
   const updateDates = (e) => {
     let date = e.target.value;
     localStorage.setItem(`date-${params.state}`, date);
     setShowDistrict(false);
     setUpdateDate(date);
   };
-
+  //
   const showDist = () => {
     setShowDistrict(true);
   };
-
+  //
   const updateFilter = (e) => {
     let filter = e.target.value;
     if (filter === "Ascending" || filter === "Descending") {

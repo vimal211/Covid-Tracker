@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGreaterThan,
+  faLessThan,
+  faSyringe,
+  faThermometerFull,
+} from "@fortawesome/free-solid-svg-icons";
 
 function CardDetails({ cardData }) {
-  let [cardNo, setCardNo] = useState(1);
-  let [selectedDist, setSelectedDist] = useState("All");
-
+  const [cardNo, setCardNo] = useState(1);
+  const [selectedDist, setSelectedDist] = useState("All");
+  //
   let districts = [];
   if (cardData.data.districts) {
     districts.push(...Object.keys(cardData.data.districts));
   }
-
+  //
   const districtDetail = (e) => {
     let selected = e.target.value;
     setSelectedDist(selected);
   };
-
+  //
   const nextSlide = () => {
     let currSlide = cardNo;
     if (currSlide === 3) {
@@ -25,7 +30,7 @@ function CardDetails({ cardData }) {
       setCardNo(currSlide + 1);
     }
   };
-
+  //
   const prevSlide = () => {
     let currSlide = cardNo;
     if (currSlide === 1) {
@@ -34,7 +39,7 @@ function CardDetails({ cardData }) {
       setCardNo(currSlide - 1);
     }
   };
-
+  //
   return (
     <div className="card">
       <div className="top">
@@ -88,7 +93,6 @@ function CardDetails({ cardData }) {
             <p>
               <strong>Confirmed : </strong>{" "}
               <span style={{ color: "red" }}>
-                {" "}
                 {selectedDist === "All"
                   ? cardNo === 1
                     ? cardData.data.total
@@ -131,7 +135,6 @@ function CardDetails({ cardData }) {
             <p>
               <strong>Recovered : </strong>{" "}
               <span style={{ color: "green" }}>
-                {" "}
                 {selectedDist === "All"
                   ? cardNo === 1
                     ? cardData.data.total
@@ -173,7 +176,6 @@ function CardDetails({ cardData }) {
             <p>
               <strong>Deceased : </strong>{" "}
               <span style={{ color: "grey" }}>
-                {" "}
                 {selectedDist === "All"
                   ? cardNo === 1
                     ? cardData.data.total
@@ -224,12 +226,18 @@ function CardDetails({ cardData }) {
       </div>
       <div className="bottom">
         <p>
-          {" "}
+          <FontAwesomeIcon
+            style={{ color: "red" }}
+            icon={("fas", faThermometerFull)}
+          />
           <strong> Affected : </strong>
           <span>{cardData.affectedPercentage}%</span>
         </p>
         <p>
-          {" "}
+          <FontAwesomeIcon
+            style={{ color: "green" }}
+            icon={("fas", faSyringe)}
+          />
           <strong> Vaccinated : </strong>
           <span>{cardData.vaccinatedPercentage}%</span>
         </p>
