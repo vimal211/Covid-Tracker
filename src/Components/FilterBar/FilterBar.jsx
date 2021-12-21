@@ -2,7 +2,10 @@ import React, { useContext, useEffect } from "react";
 import "./FilterBar.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLongArrowAltLeft,
+  faFilter,
+} from "@fortawesome/free-solid-svg-icons";
 import { DataContext } from "../../Context/DataContext";
 
 function FilterBar({ name }) {
@@ -15,7 +18,15 @@ function FilterBar({ name }) {
     setUpdateDate,
     showDistrict,
     setShowDistrict,
+    sortByCategory,
+    setSortByCategory,
+    sortByNumber,
+    setSortByNumber,
   ] = useContext(DataContext);
+
+  useEffect(() => {
+    return setShowDistrict(false);
+  }, []);
 
   let navigate = useNavigate();
   let params = useParams();
@@ -56,6 +67,17 @@ function FilterBar({ name }) {
     setShowDistrict(true);
   };
 
+  const updateFilter = (e) => {
+    let filter = e.target.value;
+    if (filter === "Ascending" || filter === "Descending") {
+      document.getElementById("search").value = "";
+      setSortByNumber(filter);
+      setSearchState(undefined);
+    } else {
+      setSortByCategory(filter);
+    }
+  };
+
   return (
     <div className="filterContainer">
       <div className="states">
@@ -84,8 +106,46 @@ function FilterBar({ name }) {
           </div>
         </div>
       ) : (
-        <div className="searchBar">
-          <input onChange={searchStates} type="text" placeholder="Search" />
+        <div className="filterCont">
+          <input
+            id="search"
+            onChange={searchStates}
+            type="text"
+            placeholder="Search"
+          />
+          <div className="sortFilter">
+            <div>
+              <FontAwesomeIcon
+                style={{ marginRight: "5px" }}
+                icon={("fas", faFilter)}
+              />
+
+              <strong>Sort By : </strong>
+              <select
+                onChange={updateFilter}
+                defaultChecked="Name"
+                defaultValue="Name"
+                name="sort"
+                id=""
+              >
+                <option value="Name">Name</option>
+
+                <option value="Confirmed">Confirmed</option>
+                <option value="Affected">Affected</option>
+                <option value="Vaccinated">Vaccinated</option>
+              </select>
+              <select
+                onChange={updateFilter}
+                defaultChecked="Ascending"
+                defaultValue="Ascending"
+                name="sort"
+                id=""
+              >
+                <option value="Ascending">Ascending</option>
+                <option value="Descending">Descending</option>
+              </select>
+            </div>
+          </div>
         </div>
       )}
     </div>

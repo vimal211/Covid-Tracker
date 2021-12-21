@@ -9,6 +9,11 @@ export const DataProvider = (props) => {
   const [searchState, setSearchState] = useState();
   const [updateDate, setUpdateDate] = useState("");
   const [showDistrict, setShowDistrict] = useState(false);
+  const [sortByCategory, setSortByCategory] = useState("Name");
+  const [sortByNumber, setSortByNumber] = useState("Ascending");
+  // const [confirmed, setConfirmed] = useState();
+  // const [affected, setAffected] = useState();
+  // const [vaccinated, setVaccinated] = useState();
 
   useEffect(async () => {
     let stateVar = await fetch(
@@ -24,7 +29,17 @@ export const DataProvider = (props) => {
         id: ind,
         name: stateName[ind],
         data: stateVar[ele],
-        // date: dateVar[ele],
+        affectedPercentage: Math.ceil(
+          ((stateVar[ele].total.confirmed +
+            stateVar[ele].total.deceased +
+            stateVar[ele].total.recovered) /
+            stateVar[ele].meta.population) *
+            100
+        ),
+        vaccinatedPercentage: Math.ceil(
+          (stateVar[ele].total.vaccinated2 / stateVar[ele].meta.population) *
+            100
+        ),
       };
       stateArr.push(obj);
     });
@@ -33,11 +48,11 @@ export const DataProvider = (props) => {
       let obj = {
         id: ind,
         name: stateName[ind],
-        // data: stateVar[ele],
         date: dateVar[ele],
       };
       dateArr.push(obj);
     });
+
     setStateData(stateArr);
     setStateDate(dateArr);
   }, []);
@@ -53,6 +68,10 @@ export const DataProvider = (props) => {
         setUpdateDate,
         showDistrict,
         setShowDistrict,
+        sortByCategory,
+        setSortByCategory,
+        sortByNumber,
+        setSortByNumber,
       ]}
     >
       {props.children}

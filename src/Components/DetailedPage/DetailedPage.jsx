@@ -71,7 +71,6 @@ function DetailedPage({ date, data }) {
                       Confirmed:
                       {obj.delta.confirmed ? obj.delta.confirmed : "0"}
                     </div>
-                    <br />
                     <div>
                       Recovered:
                       {obj.delta.recovered ? obj.delta.recovered : "0"}
@@ -93,7 +92,6 @@ function DetailedPage({ date, data }) {
                       Confirmed:
                       {obj.delta7.confirmed ? obj.delta7.confirmed : "0"}
                     </div>
-                    <br />
                     <div>
                       Recovered:
                       {obj.delta7.recovered ? obj.delta7.recovered : "0"}

@@ -1,39 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
 
-function CardDetails({ stateData }) {
-  let [dropdDownValue, setDropDownValue] = useState("All");
+function CardDetails({ cardData }) {
   let [cardNo, setCardNo] = useState(1);
-  let [displayData, setDisplayData] = useState(stateData.data);
+  let [selectedDist, setSelectedDist] = useState("All");
 
-  useEffect(() => {
-    let value = localStorage.getItem(stateData.name);
-    if (value) {
-      setDropDownValue(value);
-      if (value === "All") {
-        setDisplayData(stateData.data);
-      } else {
-        setDisplayData(stateData.data.districts[value]);
-      }
-    }
-  }, [displayData]);
   let districts = [];
-  if (stateData.data.districts) {
-    districts.push(...Object.keys(stateData.data.districts));
+  if (cardData.data.districts) {
+    districts.push(...Object.keys(cardData.data.districts));
   }
 
   const districtDetail = (e) => {
     let selected = e.target.value;
-    localStorage.setItem(stateData.name, selected);
-    let disObj = stateData.data.districts[selected];
-    {
-      selected === "All"
-        ? setDisplayData(stateData.data)
-        : setDisplayData(disObj);
-    }
+    setSelectedDist(selected);
   };
 
   const nextSlide = () => {
@@ -59,15 +41,15 @@ function CardDetails({ stateData }) {
       <div className="top">
         <Link
           style={{ textDecoration: "none", color: "white" }}
-          to={`/${stateData.name}`}
+          to={`/${cardData.name}`}
         >
-          <h3>{stateData.name}</h3>
+          <h3>{cardData.name}</h3>
         </Link>
 
         {districts.length > 0 ? (
           <select
-            defaultChecked={dropdDownValue}
-            value={dropdDownValue}
+            aria-checked={selectedDist}
+            value={selectedDist}
             onChange={districtDetail}
             name="districts"
             id="districts"
@@ -85,7 +67,7 @@ function CardDetails({ stateData }) {
           ""
         )}
       </div>
-      <div className="bottom">
+      <div className="middle">
         <div className="leftArrow">
           <FontAwesomeIcon
             onClick={prevSlide}
@@ -93,7 +75,6 @@ function CardDetails({ stateData }) {
             icon={("fas", faLessThan)}
           />
         </div>
-
         <div className="details">
           <div>
             <span
@@ -105,73 +86,134 @@ function CardDetails({ stateData }) {
             >
               {cardNo === 1 ? "TOTAL" : cardNo === 2 ? "DELTA" : "DELTA-7"}
             </span>
+            <p>
+              <strong>Confirmed : </strong>{" "}
+              <span style={{ color: "red" }}>
+                {" "}
+                {selectedDist === "All"
+                  ? cardNo === 1
+                    ? cardData.data.total
+                      ? cardData.data.total.confirmed
+                        ? cardData.data.total.confirmed
+                        : "-"
+                      : "-"
+                    : cardNo === 2
+                    ? cardData.data.delta
+                      ? cardData.data.delta.confirmed
+                        ? cardData.data.delta.confirmed
+                        : "-"
+                      : "-"
+                    : cardData.data.delta7
+                    ? cardData.data.delta7.confirmed
+                      ? cardData.data.delta7.confirmed
+                      : "-"
+                    : "-"
+                  : //
+
+                  cardNo === 1
+                  ? cardData.data.districts[selectedDist].total
+                    ? cardData.data.districts[selectedDist].total.confirmed
+                      ? cardData.data.districts[selectedDist].total.confirmed
+                      : "-"
+                    : "-"
+                  : cardNo === 2
+                  ? cardData.data.districts[selectedDist].delta
+                    ? cardData.data.districts[selectedDist].delta.confirmed
+                      ? cardData.data.districts[selectedDist].delta.confirmed
+                      : "-"
+                    : "-"
+                  : cardData.data.districts[selectedDist].delta7
+                  ? cardData.data.districts[selectedDist].delta7.confirmed
+                    ? cardData.data.districts[selectedDist].delta7.confirmed
+                    : "-"
+                  : "-"}
+              </span>
+            </p>
+            <p>
+              <strong>Recovered : </strong>{" "}
+              <span style={{ color: "green" }}>
+                {" "}
+                {selectedDist === "All"
+                  ? cardNo === 1
+                    ? cardData.data.total
+                      ? cardData.data.total.recovered
+                        ? cardData.data.total.recovered
+                        : "-"
+                      : "-"
+                    : cardNo === 2
+                    ? cardData.data.delta
+                      ? cardData.data.delta.recovered
+                        ? cardData.data.delta.recovered
+                        : "-"
+                      : "-"
+                    : cardData.data.delta7
+                    ? cardData.data.delta7.recovered
+                      ? cardData.data.delta7.recovered
+                      : "-"
+                    : "-"
+                  : //
+                  cardNo === 1
+                  ? cardData.data.districts[selectedDist].total
+                    ? cardData.data.districts[selectedDist].total.recovered
+                      ? cardData.data.districts[selectedDist].total.recovered
+                      : "-"
+                    : "-"
+                  : cardNo === 2
+                  ? cardData.data.districts[selectedDist].delta
+                    ? cardData.data.districts[selectedDist].delta.recovered
+                      ? cardData.data.districts[selectedDist].delta.recovered
+                      : "-"
+                    : "-"
+                  : cardData.data.districts[selectedDist].delta7
+                  ? cardData.data.districts[selectedDist].delta7.recovered
+                    ? cardData.data.districts[selectedDist].delta7.recovered
+                    : "-"
+                  : "-"}
+              </span>
+            </p>
+            <p>
+              <strong>Deceased : </strong>{" "}
+              <span style={{ color: "grey" }}>
+                {" "}
+                {selectedDist === "All"
+                  ? cardNo === 1
+                    ? cardData.data.total
+                      ? cardData.data.total.deceased
+                        ? cardData.data.total.deceased
+                        : "-"
+                      : "-"
+                    : cardNo === 2
+                    ? cardData.data.delta
+                      ? cardData.data.delta.deceased
+                        ? cardData.data.delta.deceased
+                        : "-"
+                      : "-"
+                    : cardData.data.delta7
+                    ? cardData.data.delta7.deceased
+                      ? cardData.data.delta7.deceased
+                      : "-"
+                    : "-"
+                  : //
+                  cardNo === 1
+                  ? cardData.data.districts[selectedDist].total
+                    ? cardData.data.districts[selectedDist].total.deceased
+                      ? cardData.data.districts[selectedDist].total.deceased
+                      : "-"
+                    : "-"
+                  : cardNo === 2
+                  ? cardData.data.districts[selectedDist].delta
+                    ? cardData.data.districts[selectedDist].delta.deceased
+                      ? cardData.data.districts[selectedDist].delta.deceased
+                      : "-"
+                    : "-"
+                  : cardData.data.districts[selectedDist].delta7
+                  ? cardData.data.districts[selectedDist].delta7.deceased
+                    ? cardData.data.districts[selectedDist].delta7.deceased
+                    : "-"
+                  : "-"}
+              </span>
+            </p>
           </div>
-          <p>
-            <strong>Confirmed</strong> :{" "}
-            <span style={{ color: "red" }}>
-              {cardNo === 1
-                ? displayData.total
-                  ? displayData.total.confirmed
-                    ? displayData.total.confirmed
-                    : "-"
-                  : "-"
-                : cardNo === 2
-                ? displayData.delta
-                  ? displayData.delta.confirmed
-                    ? displayData.delta.confirmed
-                    : "-"
-                  : "-"
-                : displayData.delta7
-                ? displayData.delta7.confirmed
-                  ? displayData.delta7.confirmed
-                  : "-"
-                : "-"}
-            </span>
-          </p>
-          <p>
-            <strong>Recovered</strong> :{" "}
-            <span style={{ color: "green" }}>
-              {cardNo === 1
-                ? displayData.total
-                  ? displayData.total.recovered
-                    ? displayData.total.recovered
-                    : "-"
-                  : "-"
-                : cardNo === 2
-                ? displayData.delta
-                  ? displayData.delta.recovered
-                    ? displayData.delta.recovered
-                    : "-"
-                  : "-"
-                : displayData.delta7
-                ? displayData.delta7.recovered
-                  ? displayData.delta7.recovered
-                  : "-"
-                : "-"}
-            </span>
-          </p>
-          <p>
-            <strong>Deceased</strong> :{" "}
-            <span style={{ color: "grey" }}>
-              {cardNo === 1
-                ? displayData.total
-                  ? displayData.total.deceased
-                    ? displayData.total.deceased
-                    : "-"
-                  : "-"
-                : cardNo === 2
-                ? displayData.delta
-                  ? displayData.delta.deceased
-                    ? displayData.delta.deceased
-                    : "-"
-                  : "-"
-                : displayData.delta7
-                ? displayData.delta7.deceased
-                  ? displayData.delta7.deceased
-                  : "-"
-                : "-"}
-            </span>
-          </p>
         </div>
         <div className="rightArrow">
           <FontAwesomeIcon

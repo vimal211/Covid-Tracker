@@ -9,7 +9,7 @@ function StateCard({ data }) {
       fragment = (
         <div className="cardContainer">
           {data.map((ele, ind) => {
-            return <CardDetails key={ind} stateData={ele} />;
+            return <CardDetails key={ind} cardData={ele} />;
           })}
         </div>
       );
