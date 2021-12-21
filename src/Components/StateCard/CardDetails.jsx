@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,7 +11,7 @@ import {
 function CardDetails({ cardData }) {
   const [cardNo, setCardNo] = useState(1);
   const [selectedDist, setSelectedDist] = useState("All");
-  //
+
   let districts = [];
   if (cardData.data.districts) {
     districts.push(...Object.keys(cardData.data.districts));
@@ -19,6 +19,7 @@ function CardDetails({ cardData }) {
   //
   const districtDetail = (e) => {
     let selected = e.target.value;
+    localStorage.setItem(cardData.name, selected);
     setSelectedDist(selected);
   };
   //

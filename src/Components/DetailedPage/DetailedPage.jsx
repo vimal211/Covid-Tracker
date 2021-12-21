@@ -26,8 +26,13 @@ function DetailedPage({ date, data }) {
     return ele.name === Params.state;
   });
   let distData = currStateData[0].data.districts;
-  let allDistData = [...Object.keys(currStateData[0].data.districts)];
+  let allDistData =
+    distData === undefined
+      ? []
+      : [...Object.keys(currStateData[0].data.districts)];
   //
+  console.log(data);
+
   const updateDist = (e) => {
     let distName = e.target.value;
     if (distName === "All") {
@@ -39,82 +44,119 @@ function DetailedPage({ date, data }) {
   //
   const tableRender = (dates) => {
     let allDate;
-    if (updateDate === "") {
-      allDate = Object.keys(dates);
+    if (dates) {
+      if (updateDate === "") {
+        allDate = Object.keys(dates);
+      } else {
+        allDate = [];
+        allDate.push(updateDate);
+      }
     } else {
       allDate = [];
-      allDate.push(updateDate);
     }
-    //
-    let reqDataArr = showDistrict
-      ? selectedDist === "All"
-        ? allDistData
-        : [selectedDist]
-      : allDate;
-    //
-    let fragment = reqDataArr.map((ele, ind) => {
-      console.log(distData);
-      let obj = showDistrict ? distData[ele] : dates[ele];
 
-      return (
+    //
+    let fragment;
+    if (allDistData.length === 0 || allDate.length === 0) {
+      fragment = (
         <tbody>
-          {obj ? (
-            <tr key={ind}>
-              <td>{ele}</td>
-              <td>{obj.total.confirmed ? obj.total.confirmed : "-"}</td>
-              <td>{obj.total.recovered ? obj.total.recovered : "-"}</td>
-              <td>{obj.total.deceased ? obj.total.deceased : "-"}</td>
-              <td>
-                {obj.delta ? (
-                  <div>
-                    <div>
-                      Confirmed:
-                      {obj.delta.confirmed ? obj.delta.confirmed : "0"}
-                    </div>
-                    <div>
-                      Recovered:
-                      {obj.delta.recovered ? obj.delta.recovered : "0"}
-                    </div>
-                    <br />
-                    <div>
-                      Deceased:{obj.delta.deceased ? obj.delta.deceased : "0"}
-                    </div>
-                    <br />
-                  </div>
-                ) : (
-                  "-"
-                )}
-              </td>
-              <td>
-                {obj.delta7 ? (
-                  <div>
-                    <div>
-                      Confirmed:
-                      {obj.delta7.confirmed ? obj.delta7.confirmed : "0"}
-                    </div>
-                    <div>
-                      Recovered:
-                      {obj.delta7.recovered ? obj.delta7.recovered : "0"}
-                    </div>
-                    <br />
-                    <div>
-                      Deceased:{obj.delta7.deceased ? obj.delta7.deceased : "0"}
-                    </div>
-                    <br />
-                  </div>
-                ) : (
-                  "-"
-                )}
-              </td>
-            </tr>
-          ) : (
-            <td align="center" colSpan="6">
-              No Result Found
-            </td>
-          )}
+          <tr>
+            <td colSpan="6">No Data Found</td>
+          </tr>
         </tbody>
       );
-    });
+    } else {
+      let reqDataArr = showDistrict
+        ? selectedDist === "All"
+          ? allDistData
+          : [selectedDist]
+        : allDate;
+
+      fragment = reqDataArr.map((ele, ind) => {
+        let obj = showDistrict ? distData[ele] : dates[ele];
+
+        return (
+          <tbody>
+            {obj ? (
+              <tr key={ind}>
+                <td>{ele}</td>
+                <td>
+                  {obj.total
+                    ? obj.total.confirmed
+                      ? obj.total.confirmed
+                      : "-"
+                    : "-"}
+                </td>
+                <td>
+                  {obj.total
+                    ? obj.total.recovered
+                      ? obj.total.recovered
+                      : "-"
+                    : "-"}
+                </td>
+                <td>
+                  {obj.total
+                    ? obj.total.deceased
+                      ? obj.total.deceased
+                      : "-"
+                    : "-"}
+                </td>
+                <td>
+                  {obj.delta ? (
+                    <div>
+                      <div>
+                        Confirmed:
+                        {obj.delta.confirmed ? obj.delta.confirmed : "0"}
+                      </div>
+                      <div>
+                        Recovered:
+                        {obj.delta.recovered ? obj.delta.recovered : "0"}
+                      </div>
+                      <br />
+                      <div>
+                        Deceased:{obj.delta.deceased ? obj.delta.deceased : "0"}
+                      </div>
+                      <br />
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                </td>
+                <td>
+                  {obj.delta7 ? (
+                    <div>
+                      <div>
+                        Confirmed:
+                        {obj.delta7.confirmed ? obj.delta7.confirmed : "0"}
+                      </div>
+                      <div>
+                        Recovered:
+                        {obj.delta7.recovered ? obj.delta7.recovered : "0"}
+                      </div>
+                      <br />
+                      <div>
+                        Deceased:
+                        {obj.delta7.deceased ? obj.delta7.deceased : "0"}
+                      </div>
+                      <br />
+                    </div>
+                  ) : (
+                    "-"
+                  )}
+                </td>
+              </tr>
+            ) : (
+              <td align="center" colSpan="6">
+                No Result Found
+              </td>
+            )}
+          </tbody>
+        );
+      });
+    }
+
+    //
+
     return fragment;
   };
 
