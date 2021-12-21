@@ -40,6 +40,7 @@ function FilterBar({ name }) {
   }, []);
   //
   const moveToHome = () => {
+    setSearchState(stateData);
     return navigate("/");
   };
   //
