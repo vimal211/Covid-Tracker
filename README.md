@@ -1,4 +1,4 @@
-# Covid Tracker (Task 1 - Zoho)
+# Covid Tracker
 
 ## Click here to see <a target="_blank" href="https://covid-tracker-task1-zoho.vercel.app/">Live Demo</a>.
 
