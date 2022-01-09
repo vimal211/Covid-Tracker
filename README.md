@@ -1,6 +1,6 @@
 # Covid Tracker
 
-## Click here to see <a target="_blank" href="https://covid-tracker-task1-zoho.vercel.app/">Live Demo</a>.
+## Click here to see <a target="_blank" href="https://covid-tracker-2022-app.vercel.app/">Live Demo</a>.
 
 ## Home Page
 
